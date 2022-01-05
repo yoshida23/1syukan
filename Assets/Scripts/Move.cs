@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
+    static public GameObject player { get; private set; }
     private Rigidbody rb;
 
     private float power=3f;
     // Start is called before the first frame update
     void Start()
     {
+        player = gameObject;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -17,16 +19,16 @@ public class Move : MonoBehaviour
     void Update()
     {
         float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
+        float y = Input.GetAxisRaw("Vertical");
 
-        Vector3 IdouHoukou = new Vector3(x, 0, z);
+        Vector3 IdouHoukou = new Vector3(x, y, 0);
+
+        power = 3f;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            power = 6f;
+        }
 
         rb.velocity = IdouHoukou * power;
-
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
-        transform.position = new Vector3(
-                    Mathf.Clamp(transform.position.x, -5f, 5f),
-                    Mathf.Clamp(transform.position.y, 1f, 1f),
-                 Mathf.Clamp(transform.position.z, -5f, 5f));
     }
 }

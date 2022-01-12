@@ -16,7 +16,7 @@ public class EnemyMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 vec = (player.transform.position - gameObject.transform.position);
+        Vector3 vec = (player.transform.position - transform.position);
         Vector3 vecn = vec.normalized;
         rb.velocity = vecn * 5f;
     }
